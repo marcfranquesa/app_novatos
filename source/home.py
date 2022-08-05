@@ -19,7 +19,7 @@ def description():
         d'ajuntar el matemàtic amb la seva descripció.
         
         Funcionament:
-        1. Si encerteu guanyeu 3 punt
+        1. Si encerteu guanyeu 3 punts
         2. Si falleu perdeu 1 punt
         3. Podeu saltar el matemàtic
         
