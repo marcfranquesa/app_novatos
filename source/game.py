@@ -61,9 +61,9 @@ def show_guess():
             st.session_state.names[st.session_state.position - 2]
         )
         if st.session_state.guess:
-            st.success(f"Has encertat l'anterior 😊! Era en/na {previous}.")
+            st.success(f"Has encertat l'anterior 😊! Era el/la {previous}.")
         else:
-            st.error(f"Has fallat l'anterior ☹️! Era en/na {previous}.")
+            st.error(f"Has fallat l'anterior ☹️! Era el/la {previous}.")
 
 def show_main():
     st.subheader("Descripció:")
