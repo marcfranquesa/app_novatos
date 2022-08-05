@@ -1,4 +1,5 @@
 import random
+from typing import List
 
 import streamlit as st
 import yaml
@@ -6,20 +7,20 @@ import yaml
 from source import utils
 
 
-def get_name() -> str:
+def get_main_name() -> str:
     name = st.session_state.names[st.session_state.position]
     st.session_state.position += 1
     return name
 
 
-def get_9_descriptions():
-    descriptions = [st.session_state.descriptions[st.session_state.name]]
-    while len(descriptions) < 9:
-        description = random.choice(list(st.session_state.descriptions.values()))
-        if description not in descriptions:
-            descriptions.append(description)
-    random.shuffle(descriptions)
-    return descriptions
+def get_9_names() -> List[str]:
+    names = [st.session_state.name]
+    while len(names) < 9:
+        name = random.choice(st.session_state.names)
+        if name not in names:
+            names.append(name)
+    random.shuffle(names)
+    return names
 
 
 def init(post_init: bool = False):
@@ -31,9 +32,8 @@ def init(post_init: bool = False):
         st.session_state.position = 0
         st.session_state.score = 0
 
-    st.session_state.name = get_name()
-    st.session_state.image = utils.get_image()
-    st.session_state.descriptions_to_show = get_9_descriptions()
+    st.session_state.name = get_main_name()
+    st.session_state.names_to_show = get_9_names()
 
 
 def restart():
@@ -43,33 +43,70 @@ def restart():
         init(post_init=True)
 
 
-def check(description: str):
-    if description == st.session_state.descriptions[st.session_state.name]:
+def check(selected: str, skipped: bool = False):
+    if skipped:
+        st.session_state.pop("guess", None)
+    elif selected == st.session_state.name:
         st.session_state.score += 3
+        st.session_state.guess = True
     else:
+        st.session_state.guess = False
         st.session_state.score -= 1
     restart()
 
 
-def show_descriptions():
+def show_guess():
+    if "guess" in st.session_state:
+        previous = utils.beautify_name(
+            st.session_state.names[st.session_state.position - 2]
+        )
+        if st.session_state.guess:
+            st.success(f"Has encertat l'anterior 😊! Era en/na {previous}.")
+        else:
+            st.error(f"Has fallat l'anterior ☹️! Era en/na {previous}.")
+
+def show_main():
+    st.subheader("Descripció:")
+    st.markdown(
+        f"""
+        <div style="
+            background: ghostwhite; 
+            font-size: 20px; 
+            padding: 15px; 
+            border: 1px solid lightgray; 
+            margin: 20px;
+            text-align: center;">
+        {st.session_state.descriptions[st.session_state.name]}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    st.write('')
+
+
+def show_option(position, location):
+    name = st.session_state.names_to_show[position]
+    location.image(
+        utils.get_image(
+            name
+        ),
+        width=200,
+    )
+    location.button(
+        utils.beautify_name(name), 
+        on_click=check, 
+        args=[st.session_state.names_to_show[position]]
+    )
+
+
+def show_options():
+    st.subheader("Opcions:")
     for i in range(3):
         col1, col2, col3 = st.columns(3)
-        col1.button(
-            st.session_state.descriptions_to_show[3 * i], 
-            on_click=check, 
-            args=[st.session_state.descriptions_to_show[3 * i]]
-        )
-        col2.button(
-            st.session_state.descriptions_to_show[3 * i + 1],
-            on_click=check,
-            args=[st.session_state.descriptions_to_show[3 * i + 1]]
-        )
-        col3.button(
-            st.session_state.descriptions_to_show[3 * i + 2],
-            on_click=check, 
-            args=[st.session_state.descriptions_to_show[3 * i + 2]]
-        )
-
+        show_option(3 * i, col1)
+        show_option(3 * i + 1, col2)
+        show_option(3 * i + 2, col3)
+        
 
 def main():
     st.write(
@@ -82,13 +119,11 @@ def main():
         init()
 
     reset, win, _ = st.columns([0.7, 1, 1])
-    reset.button("Saltar matemàtic", on_click=restart)
+    reset.button("Saltar matemàtic", on_click=check, args=[None, True])
 
-    _, image, _ = st.columns(3)
-    image.subheader(st.session_state.name.replace('_', ' ').title())
-    image.image(st.session_state.image, width=200)
-    
-    show_descriptions()
+    show_guess()
+    show_main()
+    show_options()
     
     win.button(f"🏆 {st.session_state.score}")
 

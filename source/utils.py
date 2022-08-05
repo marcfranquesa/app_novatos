@@ -8,8 +8,11 @@ import pandas as pd
 import streamlit as st
 
 
-def get_image() -> PIL.Image:
-    return PIL.Image.open(f"resources/images/{st.session_state.name}.jpg")
+def beautify_name(name):
+    return name.replace('_', ' ').title()
+
+def get_image(name: str) -> PIL.Image:
+    return PIL.Image.open(f"resources/images/{name}.jpg")
 
 
 def get_sheet() -> gs.Worksheet:
