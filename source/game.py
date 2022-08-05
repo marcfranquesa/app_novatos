@@ -75,7 +75,8 @@ def show_main():
             padding: 15px; 
             border: 1px solid lightgray; 
             margin: 20px;
-            text-align: center;">
+            text-align: center;
+            color: pink;">
         {st.session_state.descriptions[st.session_state.name]}
         </div>
         """,
