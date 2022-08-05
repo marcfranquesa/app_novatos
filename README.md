@@ -7,7 +7,7 @@ This app uses a google worksheet as a database for the ranking. Here is an image
 
 ![plot](./resources/readme/worksheet.png)
 
-You will first need to enable the Sheets API and create a service account & key file. A local Streamlit app will read secrets from a file .streamlit/secrets.toml in your app's root directory. Create it and add the URL of your Google Sheet plus the content of the key file as shown below:
+You will now need to enable the Sheets API and create a service account & key file. A local Streamlit app will read secrets from a file `.streamlit/secrets.toml` in your app's root directory. Create it and add the URL of your Google Sheet plus the content of the key file as shown below:
 
 ```
 # .streamlit/secrets.toml
