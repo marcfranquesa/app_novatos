@@ -1,12 +1,11 @@
 import streamlit as st
-import pandas as pd
-import gspread
-import datetime
+
+from source import utils
 
 
 def description():
     st.markdown(
-        '''
+        """
         <h1 align="center">
             Felicitats, has arribat al final!
         </h1>
@@ -14,38 +13,35 @@ def description():
         ---
 
         #### Rànquing
-        ''',
+        """,
         unsafe_allow_html=True
     )
 
-def exists_name(df):
-    dff = df[df["Nom"] == st.session_state.user]
-    return len(dff) > 0
 
-
-def main():
-
-    gc = gspread.service_account_from_dict(st.secrets["gcp_service_account"])
-    sheet = gc.open_by_url(st.secrets["private_gsheets_url"]).worksheet("ranking")
-
-    df = pd.DataFrame(sheet.get_all_records())
-
-    description()
+def ranking():
+    sheet = utils.get_sheet()
+    df = utils.get_ranking(sheet=sheet)
     
-    if not exists_name(df):
-        date = datetime.datetime.now().strftime("%d/%m/%Y")
-        time = datetime.datetime.now().strftime("%H:%M:%S")
-        new_row = {
-        "Nom": st.session_state.user,
-        "Data": date,
-        "Hora" : time,
-        "Punts" : st.session_state.score
+    if not utils.exists_user(
+        st.session_state.user,
+        df,
+        sheet=sheet
+    ):
+        row = {
+            "Nom": st.session_state.user,
+            "Data": utils.get_date(),
+            "Hora" : utils.get_time(),
+            "Punts" : st.session_state.score
         }
-        df = df.append(new_row, ignore_index=True)
-
-        df = df.sort_values("Punts", ascending=False)
-        df = df.reset_index(drop=True)
+        df = utils.write_new_row(row, df, sheet)
 
     st.table(df)
 
-    sheet.update([df.columns.values.tolist()] + df.values.tolist())
+
+def main():
+    description()
+    ranking()
+
+    
+
+    

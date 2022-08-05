@@ -1,10 +1,11 @@
 import streamlit as st
-import gspread
-import pandas as pd
+
+from source import utils
+
 
 def description():
     st.markdown(
-        '''
+        """
         <h1 align="center">
             Benvinguts a l'endevinador de matemàtics 👋
         </h1>
@@ -18,17 +19,19 @@ def description():
         d'ajuntar el matemàtic amb la seva descripció.
         
         Funcionament:
-        1. Si encerteu guanyeu un punt
-        2. Si falleu perdeu un punt
+        1. Si encerteu guanyeu 3 punt
+        2. Si falleu perdeu 1 punt
+        3. Podeu saltar el matemàtic
         
         Ben senzill oi? Tenim un rànquing i el 
         guanyador s'endurà premi! Per començar
         introdueix el teu nom i prem enter.
-        ''',
+        """,
         unsafe_allow_html=True
     )
 
-def text_input():
+
+def text_input() -> str:
     name = st.text_input("Nom:")
     return name
 
@@ -36,12 +39,6 @@ def text_input():
 def finished():
     st.session_state.home_finished = True
 
-def exists(user):
-    gc = gspread.service_account_from_dict(st.secrets["gcp_service_account"])
-    sheet = gc.open_by_url(st.secrets["private_gsheets_url"]).worksheet("ranking")
-    df = pd.DataFrame(sheet.get_all_records())
-    dff = df[df["Nom"] == user]
-    return len(dff) > 0
 
 def main():
     description()
@@ -49,7 +46,7 @@ def main():
     if user != '':
         st.session_state.user = user
 
-    if "user" in st.session_state and exists(st.session_state.user):
+    if "user" in st.session_state and utils.exists_user(st.session_state.user):
         st.error("Aquest nom ja s'està utilitzant!")
 
     elif "user" in st.session_state:

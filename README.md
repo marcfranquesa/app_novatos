@@ -1,7 +1,7 @@
 # app_novatos
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://marcfranquesa-app-novatos-main-8xz0qe.streamlitapp.com/)
 
-app_novatos is a web minigame built with Python and Streamlit to help first year students at FME get to know us a little better! Enter a name, confirm and start playing. You will need to match the description to the image, fail to do so lose a point! Get it right earn a point! Once you have gone through everyone, a ranking page will pop up with your name and score added.
+app_novatos is a web minigame built with Python and Streamlit to help first year students at FME get to know us a little better! Enter a name, confirm and start playing. You will need to match the description to the image, fail to do so lose a point! Get it right earn 3 points! Once you have gone through everyone, a ranking page will pop up with your name and score added.
 
 
 <table class="center">

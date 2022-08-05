@@ -1,16 +1,16 @@
-import PIL
 import random
+
 import streamlit as st
 import yaml
 
+from source import utils
 
-def get_name():
+
+def get_name() -> str:
     name = st.session_state.names[st.session_state.position]
     st.session_state.position += 1
     return name
 
-def get_image():
-    return PIL.Image.open(f"resources/images/{st.session_state.name}.jpg")
 
 def get_9_descriptions():
     descriptions = [st.session_state.descriptions[st.session_state.name]]
@@ -22,7 +22,7 @@ def get_9_descriptions():
     return descriptions
 
 
-def init(post_init=False):
+def init(post_init: bool = False):
     if not post_init:
         with open(r"resources/descriptions.yaml") as file:
             st.session_state.descriptions = yaml.load(file, Loader=yaml.FullLoader)
@@ -32,7 +32,7 @@ def init(post_init=False):
         st.session_state.score = 0
 
     st.session_state.name = get_name()
-    st.session_state.image = get_image()
+    st.session_state.image = utils.get_image()
     st.session_state.descriptions_to_show = get_9_descriptions()
 
 
@@ -42,31 +42,34 @@ def restart():
     else:
         init(post_init=True)
 
-def check(description):
+
+def check(description: str):
     if description == st.session_state.descriptions[st.session_state.name]:
-        st.session_state.score += 1
-        restart()
+        st.session_state.score += 3
     else:
         st.session_state.score -= 1
+    restart()
+
 
 def show_descriptions():
     for i in range(3):
-        desc1, desc2, desc3 = st.columns(3)
-        desc1.button(
+        col1, col2, col3 = st.columns(3)
+        col1.button(
             st.session_state.descriptions_to_show[3 * i], 
             on_click=check, 
             args=[st.session_state.descriptions_to_show[3 * i]]
         )
-        desc2.button(
+        col2.button(
             st.session_state.descriptions_to_show[3 * i + 1],
             on_click=check,
             args=[st.session_state.descriptions_to_show[3 * i + 1]]
         )
-        desc3.button(
+        col3.button(
             st.session_state.descriptions_to_show[3 * i + 2],
             on_click=check, 
             args=[st.session_state.descriptions_to_show[3 * i + 2]]
         )
+
 
 def main():
     st.write(
@@ -78,10 +81,11 @@ def main():
     if "names" not in st.session_state:
         init()
 
-    reset, win, _ = st.columns([0.5, 1, 1])
-    reset.button("Nou matemàtic", on_click=restart)
+    reset, win, _ = st.columns([0.7, 1, 1])
+    reset.button("Saltar matemàtic", on_click=restart)
 
     _, image, _ = st.columns(3)
+    image.subheader(st.session_state.name.replace('_', ' ').title())
     image.image(st.session_state.image, width=200)
     
     show_descriptions()
