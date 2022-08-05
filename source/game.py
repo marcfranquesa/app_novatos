@@ -44,10 +44,10 @@ def restart():
 
 def check(description):
     if description == st.session_state.descriptions[st.session_state.name]:
-        st.session_state.score += 1
-        restart()
+        st.session_state.score += 3
     else:
         st.session_state.score -= 1
+    restart()
 
 def show_descriptions():
     for i in range(3):
