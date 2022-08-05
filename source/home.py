@@ -16,7 +16,7 @@ def description():
         
         Per fi teniu les descripcions dels de segón!
         Hem decidit fer un petit joc en el que haureu
-        d'ajuntar el matemàtic amb la seva descripció.
+        d'ajuntar cada descripció amb el matemàtic.
         
         Funcionament:
         1. Si encerteu guanyeu 3 punt
