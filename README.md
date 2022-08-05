@@ -10,9 +10,9 @@ app_novatos is a web minigame built with Python and Streamlit to help first year
      <td>Ranking</td>
   </tr>
   <tr>
-    <td><img src="resources/readme/home.png" width=270 height=480></td>
-    <td><img src="sresources/readme/game.png" width=270 height=480></td>
-    <td><img src="resources/readme/ranking.png" width=270 height=480></td>
+    <td><img src="resources/readme/home.png" width=270 height=230></td>
+    <td><img src="resources/readme/game.png" width=270 height=230></td>
+    <td><img src="resources/readme/ranking.png" width=270 height=230></td>
   </tr>
  </table>
 
