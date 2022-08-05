@@ -1,7 +1,17 @@
 # app_novatos
+![Streamlit](https://maframo-app-novatos-test-main-9ylu8v.streamlitapp.com)
 app_novatos is a web minigame built with Python and Streamlit to help first year students at FME get to know us a little better!
 
-## How to run it
+## Home page
+![plot](./resources/readme/home.png)
+
+## Game page
+![plot](./resources/readme/game.png)
+
+## Ranking page
+![plot](./resources/readme/ranking.png)
+
+## How to use it
 
 This app uses a google worksheet as a database for the ranking. Here is an image of the format:
 
@@ -27,11 +37,19 @@ auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
 client_x509_cert_url = "xxx"
 ```
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the requirements.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the requirements (remember to use a virtual environment).
 
-```bash
+```
 pip install -r requirements.txt
 ```
+
+You can now locally run it!
+
+```
+streamlit run main.py
+```
+
+Or you can skip everything here and click on the badge above to check it out!
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
