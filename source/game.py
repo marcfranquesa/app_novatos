@@ -126,7 +126,3 @@ def main():
     show_options()
     
     win.button(f"🏆 {st.session_state.score}")
-
-
-if __name__ == '__main__':
-    main()
