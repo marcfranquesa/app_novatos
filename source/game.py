@@ -51,18 +51,18 @@ def check(description):
 
 def show_descriptions():
     for i in range(3):
-        desc1, desc2, desc3 = st.columns(3)
-        desc1.button(
+        col1, col2, col3 = st.columns(3)
+        col1.button(
             st.session_state.descriptions_to_show[3 * i], 
             on_click=check, 
             args=[st.session_state.descriptions_to_show[3 * i]]
         )
-        desc2.button(
+        col2.button(
             st.session_state.descriptions_to_show[3 * i + 1],
             on_click=check,
             args=[st.session_state.descriptions_to_show[3 * i + 1]]
         )
-        desc3.button(
+        col3.button(
             st.session_state.descriptions_to_show[3 * i + 2],
             on_click=check, 
             args=[st.session_state.descriptions_to_show[3 * i + 2]]
@@ -82,6 +82,7 @@ def main():
     reset.button("Nou matemàtic", on_click=restart)
 
     _, image, _ = st.columns(3)
+    image.subheader(st.session_state.name.replace('_', ' ').title())
     image.image(st.session_state.image, width=200)
     
     show_descriptions()
