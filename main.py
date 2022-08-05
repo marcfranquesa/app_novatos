@@ -1,13 +1,17 @@
 import streamlit as st
+
 from source import home, game, ranking
+
 
 def init():
     st.session_state.page = home
     st.session_state.home_finished = False
     st.session_state.game_finished = False
 
+
 def set_config():
     st.set_page_config(page_title="FME", page_icon='📚')
+
 
 def main():
 
