@@ -6,7 +6,7 @@ app_novatos is a web minigame built with Python and Streamlit to help first year
 
 <table class="center">
   <tr>
-    <td>First Screen Page</td>
+    <td>Home</td>
      <td>Game</td>
      <td>Ranking</td>
   </tr>
