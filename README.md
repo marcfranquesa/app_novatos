@@ -3,7 +3,8 @@
 
 app_novatos is a web minigame built with Python and Streamlit to help first year students at FME get to know us a little better! Enter a name, confirm and start playing. You will need to match the description to the image, fail to do so lose a point! Get it right earn a point! Once you have gone through everyone, a ranking page will pop up with your name and score added.
 
-<table>
+
+<table class="center">
   <tr>
     <td>First Screen Page</td>
      <td>Game</td>
