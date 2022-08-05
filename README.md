@@ -1,5 +1,6 @@
 # app_novatos
-![Streamlit](https://maframo-app-novatos-test-main-9ylu8v.streamlitapp.com)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://maframo-app-novatos-test-main-9ylu8v.streamlitapp.com)
+
 app_novatos is a web minigame built with Python and Streamlit to help first year students at FME get to know us a little better!
 
 ## Home page
